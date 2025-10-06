@@ -69,13 +69,13 @@ jobs:
         with:
           image-ref: '${{ secrets.DOCKER_USERNAME }}/python-app:2.0.0'
           format: 'sarif'
-          output: 'trivy-results.sarif'
+          output: 'trivy-results.json'
 
       - name: Upload Trivy SARIF artifact
         uses: actions/upload-artifact@v4
         with:
           name: trivy-sarif
-          path: trivy-results.sarif
+          path: trivy-results.json
           retention-days: 14
           
       # - name: Push image to Docker Hub
