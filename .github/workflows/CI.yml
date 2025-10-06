@@ -46,7 +46,6 @@ jobs:
       #       -Dsonar.host.url=$SONAR_HOST_URL \
       #       -Dsonar.login=$SONAR_TOKEN
 
-
       # - name: Build Docker image
       #   run: docker build -t karabalta75/kaizen:1.0 .
 
