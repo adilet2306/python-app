@@ -23,11 +23,11 @@ jobs:
       - name: Run pytest
         run: pytest
 
-      # - name: SonarQube Scan
-      #   uses: sonarsource/sonarqube-scan-action@master
-      #   env:
-      #     SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
-      #     SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
+      - name: SonarQube Scan
+        uses: sonarsource/sonarqube-scan-action@master
+        env:
+          SONAR_TOKEN: ${{ secrets.SONAR_TOKEN }}
+          SONAR_HOST_URL: ${{ secrets.SONAR_HOST_URL }}
 
       # - name: Install SonarQube Scanner
       #   run: |
@@ -63,6 +63,13 @@ jobs:
         with:
           push: true
           tags: ${{ secrets.DOCKER_USERNAME }}/python-app:2.0.0
+
+      - name: Run Trivy vulnerability scanner
+        uses: aquasecurity/trivy-action@0.20.0
+        with:
+          image-ref: '${{ secrets.DOCKERHUB_USERNAME }}/python-app:2.0.0'
+          format: 'sarif'
+          output: 'trivy-results.sarif'
           
       # - name: Push image to Docker Hub
       #   run: docker push karabalta75/kaizen:1.0.0
